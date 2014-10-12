@@ -1,8 +1,3 @@
----
-output:
-    pdf_document:
----
-
 Fuel vs. transmission: weight matters!
 ======================================
 
