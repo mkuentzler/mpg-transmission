@@ -1,5 +1,7 @@
-Fuel vs. transmission: weight matters!
-======================================
+---
+title: "Fuel vs. transmission: weight matters!"
+output: pdf_document
+---
 
 Summary
 -------
@@ -11,7 +13,7 @@ Data Preprocessing and Exploration
 
 We use data from the mtcars data set native to R. This data set describes fuel consumption and various other aspects of automobile design for 32 car models from 1973 and 1974. Our data preprocessing is limited to providing more descriptive names for the am variable, which denotes transmission type, and to converting it into a factor variable, stored in the mymtcars data frame.
 
-```{r, results='hide', echo=FALSE}
+```{r, results='hide'}
 mymtcars <- mtcars
 mymtcars$am <- gsub(0, 'Automatic', mymtcars$am)
 mymtcars$am <- gsub(1, 'Manual',    mymtcars$am)
@@ -20,7 +22,7 @@ mymtcars$am <- factor(mymtcars$am)
 
 To obtain some intuition about the data in question, we perform an exploratory plot of fuel consumption as it depends on car weight for different transmission types.
 
-```{r fig.width=7, fig.height=6}
+```{r fig.width=6, fig.height=4}
 library(ggplot2)
 ggplot(mymtcars, aes(x = wt, y = mpg, color = am)) +
     geom_point() +
@@ -54,7 +56,7 @@ fit3 <- lm(mpg ~ am + wt + hp, mymtcars)
 anova(fit1, fit2, fit3)$'Pr(>F)'[-1]
 ```
 
-Note that both including weight (in fit2) and horsepower (in fit3) provides a significant improvement, with p-values of $5 \times 10^{-9}$ and $5 \times 10^{-4}$ respectively in their likelihood ratio tests compared to models not including them. Including more variables, however, does not significantly improve our model any further, since all associated p-values are larger than 5% (other factors have been considered as well, though not shown explicitly):
+Note that both including weight (in fit2) and horsepower (in fit3) provides a significant improvement, with p-values of $5 \times 10^{-9}$ and $5 \times 10^{-4}$ respectively in their likelihood ratio tests compared to models not including them. Including more variables, however, does not significantly improve our model any further, since all associated p-values are larger than 5% (other factors have been considered as well, though they are not shown here for brevity):
 
 ```{r}
 fit4 <- lm(mpg ~ am + wt + hp + factor(cyl), mymtcars)
@@ -72,7 +74,7 @@ summary(fit3)$coefficients[2,]
 
 Finally, one can check the residuals distribution of this model:
 
-```{r fig.width=7, fig.height=6}
+```{r fig.width=5, fig.height=5}
 plot(fit3, which = 1)
 ```
 
